@@ -3,6 +3,8 @@ package com.rafa.mapper;
 import com.rafa.dto.SubredditDto;
 import com.rafa.model.Post;
 import com.rafa.model.Subreddit;
+
+
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

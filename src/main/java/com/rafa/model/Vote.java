@@ -27,7 +27,7 @@ public class Vote {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long voteId;
 	
-	private VoteType votetype;
+	private VoteType voteType;
 	
 	@NotNull
 	@ManyToOne(fetch= FetchType.LAZY)

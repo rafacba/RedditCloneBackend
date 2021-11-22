@@ -85,7 +85,16 @@
 			<scope>runtime</scope>
 		</dependency>
 		
+		<!-- For using instead of TimeAgo -->
+		<dependency>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime</artifactId>
+			<version>5.0.0.Final</version>
+		</dependency>
+		
+		
 		<!-- For Displaying time as Relative Time Ago ("Posted 1 hour ago") -->
+		<!--
 		<dependency>
 			<groupId>com.github.marlonlom</groupId>
 			<artifactId>timeago</artifactId>
@@ -101,7 +110,7 @@
 			<groupId>org.jetbrains.kotlin</groupId>
 			<artifactId>kotlin-test</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 		
 		<!-- Thymeleaf to perform body mails -->
 		<dependency>
@@ -156,6 +165,26 @@
                 	</annotationProcessorPaths>
 				</configuration>
 			</plugin>
+			<!-- <plugin>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-maven-plugin</artifactId>
+				<version>${kotlin.version}</version>
+				<executions>
+					<execution>
+						<id>compile</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<source>scr/main/java</source>
+								<source>target/generated-sources/annotations</source>
+							</sourceDirs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
 		</plugins>
 	</build>
 
