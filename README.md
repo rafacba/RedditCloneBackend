@@ -9,9 +9,11 @@
     - Java Mail Sender
     - Java Validation (actualmente hay que agregarlo si o si)
  
- ## - En POM.xml agregar:
-    - JWT related dependencies - Ver POM
-    - timeago de Marlonlom en github - requiere agregar librerias de Kotlin
+## - En POM.xml agregar:
+    - JWT related dependencies - 
+    -Ver POM
+    - NO VA MAS - timeago de Marlonlom en github - requiere agregar librerias de Kotlin
+    - En vez de TimeAgo uso org.ocpsoft.prettytime
 
 ## - Configurar aplication properties:
         ### Database Properties #####
