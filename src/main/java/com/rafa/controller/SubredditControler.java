@@ -29,7 +29,7 @@ public class SubredditControler {
 			.body(subredditService.save(subredditDto));
 	}
 	
-	@GetMapping
+	@GetMapping("/")
 	public ResponseEntity<List<SubredditDto>> getAllSubreddits() {
 		return ResponseEntity.status(HttpStatus.OK).body(subredditService.getAll());
 	}

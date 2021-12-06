@@ -1,5 +1,7 @@
 package com.rafa.mapper;
 
+import java.util.Optional;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.ocpsoft.prettytime.PrettyTime;
@@ -10,19 +12,21 @@ import com.rafa.dto.PostResponse;
 import com.rafa.model.Post;
 import com.rafa.model.Subreddit;
 import com.rafa.model.User;
+import com.rafa.model.Vote;
+import com.rafa.model.VoteType;
 import com.rafa.repository.CommentRepository;
-//import com.rafa.repository.VoteRepository;
-//import com.rafa.service.AuthService;
+import com.rafa.repository.VoteRepository;
+import com.rafa.service.AuthService;
 
 @Mapper(componentModel = "spring")
 public abstract class PostMapper {
 	
 	@Autowired
 	private CommentRepository commentRepository;
-//	@Autowired
-//	private VoteRepository voteRepository;
-//	@Autowired 
-//	private AuthService authService;
+	@Autowired
+	private VoteRepository voteRepository;
+	@Autowired 
+	private AuthService authService;
 	
 	
 	
@@ -39,8 +43,10 @@ public abstract class PostMapper {
 	@Mapping(target= "postName", source= "postName")
 	@Mapping(target= "description", source= "description")
 	@Mapping(target= "url", source= "url")
-	@Mapping(target="commentCount", expression= "java(commentCount(post)")
-	@Mapping(target="duration", expression= "java(getDuration(post)")
+	@Mapping(target="commentCount", expression= "java(commentCount(post))")
+	@Mapping(target="duration", expression= "java(getDuration(post))")
+	@Mapping(target="upVote", expression = "java(isPostUpVoted(post))")
+	@Mapping(target="downVote", expression = "java(isPostDownVoted(post))")
 	public abstract PostResponse mapToDto(Post post);
 	
 	Integer commentCount(Post post) {
@@ -49,6 +55,23 @@ public abstract class PostMapper {
 	
 	String getDuration(Post post) {		
 		return new PrettyTime().format(post.getCreatedDate());
+	}
+	
+	boolean isPostUpVoted(Post post) {
+		return checkVoteType(post, VoteType.UPVOTE);
+	}
+	
+	boolean isPostDownVoted(Post post) {
+		return checkVoteType(post, VoteType.DOWNVOTE);
+	}
+	
+	private boolean checkVoteType(Post post, VoteType voteType) {
+		if(authService.isLoggedIn()) {
+			Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+			return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType))
+					.isPresent();
+		}
+		return false;
 	}
 	
 

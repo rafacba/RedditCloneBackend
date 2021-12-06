@@ -24,10 +24,10 @@ public class PostController {
 	
 	private final PostService postService;
 	
-	@PostMapping
-	public ResponseEntity<String> createPost(@RequestBody PostRequest postRequest) {
-		postService.save(postRequest);
-		return new ResponseEntity<String>("Post created successfully",HttpStatus.CREATED);
+	@PostMapping("/")
+	public ResponseEntity<Void> createPost(@RequestBody PostRequest postRequest) {
+		postService.create(postRequest);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/")
@@ -46,8 +46,8 @@ public class PostController {
 	}
 	
 	@GetMapping("/by-user/{name}")
-	public ResponseEntity<List<PostResponse>> getpostsByUsername(@PathVariable String username) {
-		return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByUsername(username));
+	public ResponseEntity<List<PostResponse>> getPostsByUsername(@PathVariable String name) {
+		return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByUsername(name));
 	}
 	
 

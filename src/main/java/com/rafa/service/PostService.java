@@ -33,7 +33,7 @@ public class PostService {
 	private final AuthService authService;
 	private final PostMapper postMapper;
 
-	public void save(PostRequest postRequest) {
+	public void create(PostRequest postRequest) {
 		Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName())
 			.orElseThrow(()-> new RedditException("No existe subreddit"));
 		User currentUser = authService.getCurrentUser();
